@@ -6,7 +6,6 @@ from pandasgui import show
 wishlist = AudibleAPI.get_wishlist()
 
 df = pd.json_normalize(wishlist)
-df_cols = df.columns.tolist()
 
 fig = px.scatter(data_frame=df,
                  x='rating.num_reviews',
