@@ -1,46 +1,38 @@
-import audible
 import pandas as pd
+import AudibleAPI
+import plotly.express as px
+from pandasgui import show
 
-# NOTE: Uncomment auth with .from_login() if you haven't created the login file,
-# once it's created, use .from_file() from then on. I'll automate this later.
+wishlist = AudibleAPI.get_wishlist()
 
-# Authorize and register in one step, you'll need this first to create the file
-# auth = audible.Authenticator.from_login(
-#     USERNAME,
-#     PASSWORD,
-#     locale=COUNTRY_CODE,
-#     with_username=False
-# )
+df = pd.json_normalize(wishlist)
+df_cols = df.columns.tolist()
 
-# Save credentials to file
-# auth.to_file("login")
+fig = px.scatter(data_frame=df,
+                 x='rating.num_reviews',
+                 y='rating.overall_distribution.average_rating',
+                 color=None,
+                 symbol=None,
+                 size=None,
+                 trendline=None,
+                 marginal_x=None,
+                 marginal_y=None,
+                 facet_row=None,
+                 facet_col=None,
+                 render_mode='auto',
+                 hover_name='title',
+                 template='presentation',
+                 log_x=True
+                 )
+fig.update()
 
-auth = audible.Authenticator.from_file('login')
-wishlist = []
-total_wishlist_length = None
-wishlist_pages = None
+# show(fig) - This plots the books from the wishlist, and
+# and when you hover over the top of them, it
+# shows the title of the book.
+show(fig)
 
-with audible.Client(auth=auth) as client:
-    wishlist_returned = client.get(
-        "1.0/wishlist",
-        num_results=50,
-        response_groups="product_desc, product_attrs",
-        sort_by="-Rating"
-    )
-    if total_wishlist_length is None:
-        total_wishlist_length = wishlist_returned['total_results']
-        wishlist_pages = int(total_wishlist_length/50)+1
-
-    for i in range(wishlist_pages):
-        wishlist_returned = client.get(
-            "1.0/wishlist",
-            num_results=50,
-            response_groups="product_desc, product_attrs",
-            sort_by="-Rating",
-            page=i
-        )
-        for book in wishlist_returned['products']:
-            wishlist.append(book)
-
-pd.DataFrame(wishlist)
+# show(df) - This can get all the DF info into
+# Excel simply by selecting all and copying into MS Excel
+# Uncomment to use once the GUI pops up
+# show(df)
 
