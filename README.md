@@ -55,6 +55,9 @@ browse the plot for things that look interesting. As I think of more features
 I'll add them in, but this is enough for now to make a decision based on
 rating and number of people who rated it.
 
+One thing I ran into was an issue relating to pandasgui spitting out the error["no module named win32api"](https://stackoverflow.com/questions/3580855/where-to-find-the-win32api-module-for-python)
+If you run into this, make sure you're in the `venv` and do `pip install pywin32` and that resolved the issue for me.
+
 #### How it works ----------
 
 Once `auth` is all sorted out, it will generate the `wishlist` and save it locally in
