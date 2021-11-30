@@ -1,4 +1,4 @@
-# Audible wishlist tool
+# Audible Wishlist Tool
 
 ---
 
