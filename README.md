@@ -46,4 +46,22 @@ Once it's saved to a file, you can keep using that, which is found later in the 
 
 After auth is sorted out, it will give you your audible wishlist as `wishlist`
 
+---
+
+### -- Running the tool --
+
+To keep it simple, I really just wanted to plot it in a way where I could 
+browse the plot for things that look interesting. As I think of more features
+I'll add them in, but this is enough for now to make a decision based on
+rating and number of people who rated it.
+
+#### How it works ----------
+
+Once `auth` is all sorted out, it will generate the `wishlist` and save it locally in
+a file called `wishlist.dat`, it's also encrypted because... why not. 
+
+Once `wishlist.dat` is created, it's used in `main.py` to generate the plot.
+
+If you want to dig around in the details of your wishlist, uncomment the `show(df)` to
+give you a nifty interface to browse around the data, thanks to `pandasgui`
 
